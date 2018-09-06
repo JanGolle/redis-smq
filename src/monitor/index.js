@@ -19,8 +19,8 @@ function monitor(config = {}) {
     if (!config.hasOwnProperty('monitor') || !config.monitor.hasOwnProperty('enabled') || !config.monitor.enabled) {
         throw new Error('Monitor is not enabled!');
     }
-    if (!config.monitor.hasOwnProperty('port') || !config.monitor.hasOwnProperty('host')) {
-        throw new Error('HTTP port and host parameters are required!');
+    if (!config.monitor.hasOwnProperty('port')) {
+        throw new Error('HTTP port parameter required!');
     }
     if (config.hasOwnProperty('namespace')) {
         redisKeys.setNamespace(config.namespace);
@@ -51,7 +51,7 @@ function monitor(config = {}) {
              */
             const server = http.createServer(app.callback());
             io.attach(server);
-            server.listen(config.monitor.port, config.monitor.host, () => {
+            server.listen(config.monitor.port, () => {
                 /**
                  * Run stats
                  */
